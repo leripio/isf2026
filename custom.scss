@@ -1,0 +1,240 @@
+/*-- scss:defaults --*/
+
+// ---- palette -------------------------------------------------------------
+// Pulled from the existing chart/equation colors so slides and figures
+// read as one consistent system.
+$blue:        #2B6CB0;
+$blue-dark:   #1E4E8C;
+$amber:       #D97706;
+$ink:         #111827;   // near-black, used for headings
+$slate:       #1f2937;   // body text
+$muted:       #6b7280;   // captions, kickers, footer
+$hairline:    #e5e7eb;
+
+// fonts (already vendored by Quarto — no network needed on-site)
+$font-family-sans-serif: "Source Sans Pro", "Segoe UI", Helvetica, sans-serif !default;
+
+$presentation-font-size-root: 34px !default;
+$presentation-line-height: 1.2 !default;
+
+// main colors
+$body-bg: #ffffff !default;
+$body-color: $slate !default;
+$text-muted: $muted !default;
+
+// links / selection
+$link-color: $blue !default;
+$link-color-hover: $blue-dark !default;
+$selection-bg: rgba(43, 108, 176, 0.25) !default;
+
+// borders
+$border-color: $hairline !default;
+$border-width: 1px !default;
+$border-radius: 8px !default;
+
+// headings
+$presentation-heading-font: $font-family-sans-serif !default;
+$presentation-heading-color: $ink !default;
+$presentation-heading-line-height: 1.15 !default;
+$presentation-heading-letter-spacing: -0.01em !default;
+$presentation-heading-font-weight: 700 !default;
+$presentation-h1-font-size: 2.1em !default;
+$presentation-h2-font-size: 1.5em !default;
+$presentation-h3-font-size: 0.62em !default;
+$presentation-h4-font-size: 0.95em !default;
+
+$presentation-block-margin: 8px !default;
+
+$presentation-title-slide-text-align: left !default;
+$presentation-slide-text-align: left !default;
+
+/*-- scss:rules --*/
+
+// ---------------------------------------------------------------------------
+// Title slide
+// ---------------------------------------------------------------------------
+#title-slide {
+  padding-left: 0.4em;
+
+  .title {
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    color: $ink;
+    margin-bottom: 0.35em;
+  }
+
+  .subtitle {
+    font-weight: 400;
+    font-style: italic;
+    color: $muted;
+    font-size: 0.62em;
+    margin-top: 0;
+    margin-bottom: 1.6em !important;
+  }
+
+  .author,
+  .institute,
+  .date {
+    font-size: 0.5em;
+    color: $slate;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .institute {
+    color: $muted;
+  }
+
+  // small accent rule between subtitle and author block
+  .author {
+    margin-top: 0.6em;
+    padding-top: 0.6em;
+    border-top: 2px solid $blue;
+    display: inline-block;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Slide headings
+// ---------------------------------------------------------------------------
+.reveal .slides section > h2 {
+  position: relative;
+  padding-bottom: 0.2em;
+  margin-bottom: 0.3em;
+}
+
+.reveal .slides section > h2::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 2.6em;
+  height: 5px;
+  border-radius: 999px;
+  background: $blue;
+}
+
+// "### subtitle" directly under a slide title behaves like a kicker line
+.reveal .slides section > h3 {
+  font-weight: 500;
+  font-style: italic;
+  color: $muted;
+  margin-top: -0.05em;
+  margin-bottom: 0.4em;
+}
+
+// section-specific accent colors for the model-extension slides
+.text-highlight {
+  color: $blue-dark;
+  font-weight: 600;
+  background: rgba(43, 108, 176, 0.08);
+  padding: 0.02em 0.35em;
+  border-radius: 0.3em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.highlight-benchmark {
+  color: $blue;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.highlight-dynamics,
+.highlight-vol,
+.highlight-student {
+  color: $amber;
+  font-weight: 600;
+  font-style: normal;
+}
+
+// ---------------------------------------------------------------------------
+// Body copy
+// ---------------------------------------------------------------------------
+.reveal .slides section ul {
+  list-style: none;
+  margin-left: 0.1em;
+}
+
+.reveal .slides section ul li {
+  position: relative;
+  padding-left: 1.1em;
+  margin-bottom: 0.15em;
+}
+
+.reveal .slides section ul li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  color: $blue;
+  font-weight: 700;
+}
+
+.reveal .slides section ul ul {
+  margin-top: 0.3em;
+}
+
+.reveal .slides section ul ul li::before {
+  content: "·";
+  color: $muted;
+}
+
+.reveal .slides section p {
+  margin-block: 0.3em;
+}
+
+// ---------------------------------------------------------------------------
+// Figures
+// ---------------------------------------------------------------------------
+.reveal .slides section img {
+  border-radius: 10px;
+  box-shadow: 0 6px 24px rgba(17, 24, 39, 0.12);
+}
+
+// the QR code is a flat functional graphic — keep it crisp, no shadow
+.reveal .slides section img[src$=".svg"] {
+  box-shadow: none;
+  border-radius: 0;
+}
+
+// ---------------------------------------------------------------------------
+// Footer & slide number
+// ---------------------------------------------------------------------------
+.reveal .footer {
+  font-size: 0.38em;
+  color: $muted;
+  letter-spacing: 0.01em;
+}
+
+.reveal .slide-number {
+  font-size: 0.4em;
+  color: $muted;
+  background-color: transparent;
+}
+
+// ---------------------------------------------------------------------------
+// Math
+// ---------------------------------------------------------------------------
+.reveal .math {
+  font-size: 1.05em;
+}
+
+// ---------------------------------------------------------------------------
+// Footer centering
+// ---------------------------------------------------------------------------
+.reveal .footer {
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%);
+  text-align: center;
+  width: auto;
+}
+
+// ---------------------------------------------------------------------------
+// Closing / contact slide columns
+// ---------------------------------------------------------------------------
+.reveal .columns {
+  margin-top: 0.5em;
+}
+

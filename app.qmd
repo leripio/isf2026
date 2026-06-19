@@ -1,0 +1,240 @@
+---
+title: "Nowcasting when predictors keep changing"
+subtitle: "Leveraging cross-sectional information in high-dimensional, high-turnover data"
+author: "João Renato Leripio"
+institute: "Kapitalo Investimentos"
+footer: '46th International Symposium on Forecasting · June 30, 2026. Montreal, Canada · Built with Quarto <iconify-icon icon="simple-icons:quarto" style="display: inline-block; width: 0.9em; height: 0.9em; margin-left: 0.3em; vertical-align: -0.1em;"></iconify-icon>'
+format:
+  revealjs:
+    center-title-slide: false
+    theme: [default, custom.scss]
+    slide-number: true
+    embed-resources: false
+    transition: slide
+    transition-speed: default
+    background-transition: fade
+    include-in-header:
+      - text: <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+---
+
+## About me
+
+- Head of Data and Economic Modeling at Kapitalo Investimentos
+
+- Developing forecasting, modeling, and data pipelines to support investment decisions
+
+- Working with alternative datasets and real-time economic indicators
+
+## What Led Me to This Problem?
+### Building an indicator to track Brazilian CPI
+
+- Inflation forecasts are central to asset allocation in Brazil
+
+- A deep and liquid market for inflation-linked bonds creates strong incentives to forecast inflation accurately
+
+- Public information is rapidly incorporated into prices by highly qualified forecasters
+
+- Finding an edge increasingly requires alternative data
+
+- Even when market participants collect similar sources, differences in coverage, cleaning, classification, and modeling often lead to very different indicators
+
+<span class="text-highlight"> The challenge is no longer access to data, but how to transform it into useful signals </span>
+
+## What Inputs Do We Have?
+### A large set of related products
+
+- Web-scraped product-level prices
+
+- The number of available products is much larger than the official CPI basket
+
+- The CPI basket should be a subset of this data
+
+<span class="text-highlight">
+This looks like a standard variable selection problem, right?
+</span>
+
+## Not Quite a Selection Problem
+### The product basket changes continuously
+
+- Products continuously enter and leave the basket
+
+- Electronics have short lifecycles and are constantly replaced
+
+- Vehicles are effectively a new basket every year
+
+- Even "stable" categories exhibit gradual turnover
+
+<span class="text-highlight">
+The set of relevant products is itself a moving target
+</span>
+
+## What Does Turnover Look Like?
+### Product availability over time
+
+![](images/data_structure_perfume.png){fig-align="center"}
+
+## Why Do Standard Approaches Struggle?
+### High turnover creates methodological and operational challenges
+
+- Most methods are designed to learn stable relationships from a fixed set of predictors
+
+- Many products have short lifecycles, leaving little time to estimate, validate, and re-optimize models before the underlying cross-section changes again
+
+- In production environments, daily pipelines benefit from methods that remain stable over time rather than requiring frequent re-specification
+
+<span class="text-highlight"> The challenge is not only statistical. It is also operational. </span>
+
+## Reframing the Task
+### From selecting products to aggregating information
+
+- Variable selection relies on learning stable relationships over time
+
+- Most products in our data have short and irregular histories
+
+- The cross-section is rich, but the time dimension is scarce
+
+<span class="text-highlight">
+Instead of asking which products matter, we ask how to best aggregate the information they contain
+</span>
+
+## A Simple Benchmark
+### Despite its simplicity, the mean captures a useful amount of information
+
+![](images/mean_benchmark.png){fig-align="center"}
+
+## A Structured Approach
+### From a Mean to a Factor Model
+
+- The mean already captures a useful amount of information
+
+- Rather than replacing it, we can view it as a very restricted factor model
+
+- This perspective suggests a natural path for introducing additional structure
+
+<span class="text-highlight">
+A factor model allows us to extend the mean while preserving its intuition
+</span>
+
+## The Mean as the Simplest Factor Model
+### A single latent factor under strong restrictions
+
+- Unit loadings, no factor dynamics, and homoskedastic Gaussian errors
+
+$$
+\require{cancel}
+\begin{aligned}
+y_{i,t} &= f_t + \varepsilon_{i,t} \\
+f_t &= \eta_t \\
+\varepsilon_{i,t} &\sim {\mathcal{N}}(0, {\sigma_\varepsilon}) \\
+\eta_t &\sim \mathcal{N}(0, \sigma_\eta)
+\end{aligned}
+$$
+
+<span class="text-highlight">This naturally leads to potential extensions.</span>
+
+## Extension 1: Factor Dynamics
+### <span class="highlight-dynamics"> Allow the latent signal to evolve over time </span>
+
+$$
+\require{cancel}
+\begin{aligned}
+y_{i,t} &=  f_t + \varepsilon_{i,t} \\
+f_t &= \color{#D97706}{f_{t-1}} + \eta_t \\
+\varepsilon_{i,t} &\sim \mathcal{N}(0, {\sigma_\varepsilon}) \\
+\eta_t &\sim \mathcal{N}(0, \sigma_\eta)
+\end{aligned}
+$$
+
+## Extension 1: Factor Dynamics
+### <span class="highlight-dynamics"> Allow the latent signal to evolve over time </span>
+
+![](images/factor_dynamics.png){fig-align="center"}
+
+## Extension 2: Time-Varying Volatility
+### <span class="highlight-vol"> Measurement uncertainty changes with cross-sectional dispersion </span>
+
+$$
+\require{cancel}
+\begin{aligned}
+y_{i,t} &=  f_t + \varepsilon_{i,t} \\
+f_t &= \eta_t \\
+\varepsilon_{i,t} &\sim \mathcal{N}(0, \color{#D97706}{\sigma_{\varepsilon,t}}) \\
+\color{#D97706}{\log(\sigma_{\varepsilon,t})} &\color{#D97706}{=} \color{#D97706}{\alpha + \beta \times IQR_t} \\
+\eta_t &\sim \mathcal{N}(0, \sigma_\eta)
+\end{aligned}
+$$
+
+## Extension 2: Time-Varying Volatility
+### <span class="highlight-vol"> Measurement uncertainty changes with cross-sectional dispersion </span>
+
+![](images/time_varying_volatility.png){fig-align="center"}
+
+## Extension 3: Student-t Errors
+### <span class="highlight-student"> Robustness to extreme product-level price changes </span>
+
+$$
+\require{cancel}
+\begin{aligned}
+y_{i,t} &= f_t + \varepsilon_{i,t} \\
+f_t &= \eta_t \\
+\varepsilon_{i,t} &\sim \color{#D97706}{t_\nu(0, \sigma_\varepsilon)} \\
+\eta_t &\sim \mathcal{N}(0, \sigma_\eta)
+\end{aligned}
+$$
+
+## Extension 3: Student-t Errors
+### <span class="highlight-student"> Robustness to extreme product-level price changes </span>
+
+![](images/student.png){fig-align="center"}
+
+## Do these extensions actually improve forecasting performance?
+### Model with Student-t errors vs. sample mean
+
+![](images/accuracy.png){fig-align="center"}
+
+## Takeaways
+### What we learned from high-turnover datasets
+
+- In high-turnover datasets, variable selection is often not a viable strategy
+
+- The cross-section contains valuable information beyond simple averaging
+
+- Even simple extensions can deliver meaningful forecasting gains
+
+---
+
+## THANK YOU!
+
+:::: {.columns}
+
+::: {.column width="45%"}
+
+<div style="margin-top: 1em; font-size: 0.7em; line-height: 1.8;">
+
+<span style="font-size: 0.7em; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em;">
+Contact
+</span>
+
+📧 <a href="mailto:leripiorenato@gmail.com">leripiorenato@gmail.com</a>  
+🌐 <a href="https://rleripio.com/ISF2026" target="_blank">rleripio.com/isf2026</a>  
+🔗 <a href="https://linkedin.com/in/leripiorenato" target="_blank">linkedin.com/in/leripiorenato</a>  
+
+</div>
+
+:::
+
+::: {.column width="55%"}
+
+<div style="margin-top: 1em; font-size: 0.7em; line-height: 1.8;">
+
+<span style="font-size: 0.7em; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em;">
+Slides
+</span>
+
+![](images/qrcode.svg){width=55%}
+
+</div>
+
+:::
+
+::::
