@@ -226,6 +226,8 @@ $$
 
 - In high-turnover datasets, variable selection is often not a viable strategy
 
+- When predictors change faster than relationships can be learned, aggregation may be more effective than selection
+
 - The cross-section contains valuable information beyond simple averaging
 
 - Even simple extensions can deliver meaningful forecasting gains
