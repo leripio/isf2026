@@ -15,18 +15,21 @@ format:
     background-transition: fade
     include-in-header:
       - text: <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+      - file: cover-image.html
 ---
 
 ## About me
 
-- Head of Data and Economic Modeling at Kapitalo Investimentos
+-  Economist with a background in macroeconomic forecasting and data science
 
-- Developing forecasting, modeling, and data pipelines to support investment decisions
+- Lead of Data and Economic Modeling at Kapitalo Investimentos, a Brazilian multi-manager hedge fund with over USD 5 billion in assets under management
 
-- Working with alternative datasets and real-time economic indicators
+- My work involves forecasting, quantitative research, and the development of production data pipelines
+
+- I am particularly interested in alternative data and research engineering
 
 ## What Led Me to This Problem?
-### Building an indicator to track Brazilian CPI
+### Forecasting inflation in Brazil is a highly competitive task
 
 - Inflation forecasts are central to asset allocation in Brazil
 
@@ -34,9 +37,25 @@ format:
 
 - Public information is rapidly incorporated into prices by highly qualified forecasters
 
-- Finding an edge increasingly requires alternative data
+  - These include commodity prices, exchange rates, wholesale prices, among many others
 
-- Even when market participants collect similar sources, differences in coverage, cleaning, classification, and modeling often lead to very different indicators
+- In addition, professional forecasters closely monitor a proprietary indicator known as the FGV Monitor
+  
+  - The FGV Monitor tracks prices from brick-and-mortar stores and closely mirrors the methodology of Brazil's official statistical agency, providing an early and informative signal of short-term inflation 
+
+## Predictive Performance Varies Across CPI Components
+### While the FGV Monitor is difficult to outperform for some components, its predictive power is more limited for others
+
+![](images/ipca_fgv.png){fig-align="center"}
+
+## Where can we seek additional information?
+### Finding an edge increasingly requires alternative data
+
+- Rather than replacing the FGV Monitor, we seek to add an extra indicator, particularly for components where its predictive performance is more limited
+
+- Recent advances in computational tools have significantly lowered the barriers to collecting alternative data
+
+- But even when market participants collect similar sources, differences in coverage, cleaning, classification, and modeling often lead to very different indicators
 
 <span class="text-highlight"> The challenge is no longer access to data, but how to transform it into useful signals </span>
 
@@ -187,10 +206,20 @@ $$
 
 ![](images/student.png){fig-align="center"}
 
-## Do these extensions actually improve forecasting performance?
+## Do Extensions Improve Forecasting Performance?
 ### Model with Student-t errors vs. sample mean
 
 ![](images/accuracy.png){fig-align="center"}
+
+## Is there information beyond the FGV Monitor?
+### Yes, there are periods when alternative data provides information beyond the FGV Monitor.
+
+![](images/ipca_fgv_kptl.png){fig-align="center"}
+
+## What about combining them into a single indicator?
+### Simple forecast combinations often outperform their individual components
+
+![](images/kpt_fgv_acc.png){fig-align="center"}
 
 ## Takeaways
 ### What we learned from high-turnover datasets
@@ -200,6 +229,8 @@ $$
 - The cross-section contains valuable information beyond simple averaging
 
 - Even simple extensions can deliver meaningful forecasting gains
+
+- Alternative data are not silver bullets, but they can provide complementary information beyond traditional indicators
 
 ---
 
@@ -215,7 +246,7 @@ $$
 Contact
 </span>
 
-📧 <a href="mailto:leripiorenato@gmail.com">leripiorenato@gmail.com</a>  
+📧 <a href="mailto:joao@rleripio.com">joao@rleripio.com</a>  
 🌐 <a href="https://rleripio.com/ISF2026" target="_blank">rleripio.com/isf2026</a>  
 🔗 <a href="https://linkedin.com/in/leripiorenato" target="_blank">linkedin.com/in/leripiorenato</a>  
 

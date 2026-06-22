@@ -320,6 +320,16 @@
       margin-right: 0; 
     }
   </style>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var slide = document.getElementById('title-slide');
+    if (!slide) return;
+    var img = document.createElement('img');
+    img.src = 'images/cover.png';
+    img.style.cssText = 'position:absolute;left:60%;top:80%;width:50%;height:100%;border-radius:20px;box-shadow:none;pointer-events:none;';
+    slide.appendChild(img);
+  });
+  </script>
   <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
 </head>
 <body class="quarto-light">
@@ -345,20 +355,40 @@ João Renato Leripio
 <section id="about-me" class="slide level2">
 <h2>About me</h2>
 <ul>
-<li><p>Head of Data and Economic Modeling at Kapitalo Investimentos</p></li>
-<li><p>Developing forecasting, modeling, and data pipelines to support investment decisions</p></li>
-<li><p>Working with alternative datasets and real-time economic indicators</p></li>
+<li><p>Economist with a background in macroeconomic forecasting and data science</p></li>
+<li><p>Lead of Data and Economic Modeling at Kapitalo Investimentos, a Brazilian multi-manager hedge fund with over USD 5 billion in assets under management</p></li>
+<li><p>My work involves forecasting, quantitative research, and the development of production data pipelines</p></li>
+<li><p>I am particularly interested in alternative data and research engineering</p></li>
 </ul>
 </section>
 <section id="what-led-me-to-this-problem" class="slide level2">
 <h2>What Led Me to This Problem?</h2>
-<h3 id="building-an-indicator-to-track-brazilian-cpi">Building an indicator to track Brazilian CPI</h3>
+<h3 id="forecasting-inflation-in-brazil-is-a-highly-competitive-task">Forecasting inflation in Brazil is a highly competitive task</h3>
 <ul>
 <li><p>Inflation forecasts are central to asset allocation in Brazil</p></li>
 <li><p>A deep and liquid market for inflation-linked bonds creates strong incentives to forecast inflation accurately</p></li>
-<li><p>Public information is rapidly incorporated into prices by highly qualified forecasters</p></li>
-<li><p>Finding an edge increasingly requires alternative data</p></li>
-<li><p>Even when market participants collect similar sources, differences in coverage, cleaning, classification, and modeling often lead to very different indicators</p></li>
+<li><p>Public information is rapidly incorporated into prices by highly qualified forecasters</p>
+<ul>
+<li>These include commodity prices, exchange rates, wholesale prices, among many others</li>
+</ul></li>
+<li><p>In addition, professional forecasters closely monitor a proprietary indicator known as the FGV Monitor</p>
+<ul>
+<li>The FGV Monitor tracks prices from brick-and-mortar stores and closely mirrors the methodology of Brazil’s official statistical agency, providing an early and informative signal of short-term inflation</li>
+</ul></li>
+</ul>
+</section>
+<section id="predictive-performance-varies-across-cpi-components" class="slide level2">
+<h2>Predictive Performance Varies Across CPI Components</h2>
+<h3 id="while-the-fgv-monitor-is-difficult-to-outperform-for-some-components-its-predictive-power-is-more-limited-for-others">While the FGV Monitor is difficult to outperform for some components, its predictive power is more limited for others</h3>
+
+<img data-src="images/ipca_fgv.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="where-can-we-seek-additional-information" class="slide level2">
+<h2>Where can we seek additional information?</h2>
+<h3 id="finding-an-edge-increasingly-requires-alternative-data">Finding an edge increasingly requires alternative data</h3>
+<ul>
+<li><p>Rather than replacing the FGV Monitor, we seek to add an extra indicator, particularly for components where its predictive performance is more limited</p></li>
+<li><p>Recent advances in computational tools have significantly lowered the barriers to collecting alternative data</p></li>
+<li><p>But even when market participants collect similar sources, differences in coverage, cleaning, classification, and modeling often lead to very different indicators</p></li>
 </ul>
 <p><span class="text-highlight"> The challenge is no longer access to data, but how to transform it into useful signals </span></p>
 </section>
@@ -495,11 +525,21 @@ f_t &amp;= \eta_t \\
 <h3 id="robustness-to-extreme-product-level-price-changes-1"><span class="highlight-student"> Robustness to extreme product-level price changes </span></h3>
 
 <img data-src="images/student.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="do-these-extensions-actually-improve-forecasting-performance" class="slide level2">
-<h2>Do these extensions actually improve forecasting performance?</h2>
+<section id="do-extensions-improve-forecasting-performance" class="slide level2">
+<h2>Do Extensions Improve Forecasting Performance?</h2>
 <h3 id="model-with-student-t-errors-vs.-sample-mean">Model with Student-t errors vs.&nbsp;sample mean</h3>
 
 <img data-src="images/accuracy.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="is-there-information-beyond-the-fgv-monitor" class="slide level2">
+<h2>Is there information beyond the FGV Monitor?</h2>
+<h3 id="yes-there-are-periods-when-alternative-data-provides-information-beyond-the-fgv-monitor.">Yes, there are periods when alternative data provides information beyond the FGV Monitor.</h3>
+
+<img data-src="images/ipca_fgv_kptl.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="what-about-combining-them-into-a-single-indicator" class="slide level2">
+<h2>What about combining them into a single indicator?</h2>
+<h3 id="simple-forecast-combinations-often-outperform-their-individual-components">Simple forecast combinations often outperform their individual components</h3>
+
+<img data-src="images/kpt_fgv_acc.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="takeaways" class="slide level2">
 <h2>Takeaways</h2>
 <h3 id="what-we-learned-from-high-turnover-datasets">What we learned from high-turnover datasets</h3>
@@ -507,6 +547,7 @@ f_t &amp;= \eta_t \\
 <li><p>In high-turnover datasets, variable selection is often not a viable strategy</p></li>
 <li><p>The cross-section contains valuable information beyond simple averaging</p></li>
 <li><p>Even simple extensions can deliver meaningful forecasting gains</p></li>
+<li><p>Alternative data are not silver bullets, but they can provide complementary information beyond traditional indicators</p></li>
 </ul>
 </section>
 <section id="thank-you" class="slide level2">
@@ -515,7 +556,7 @@ f_t &amp;= \eta_t \\
 <div class="column" style="width:45%;">
 <div style="margin-top: 1em; font-size: 0.7em; line-height: 1.8;">
 <p><span style="font-size: 0.7em; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em;"> Contact </span></p>
-<p>📧 <a href="mailto:leripiorenato@gmail.com">leripiorenato@gmail.com</a><br>
+<p>📧 <a href="mailto:joao@rleripio.com">joao@rleripio.com</a><br>
 🌐 <a href="https://rleripio.com/ISF2026" target="_blank">rleripio.com/isf2026</a><br>
 🔗 <a href="https://linkedin.com/in/leripiorenato" target="_blank">linkedin.com/in/leripiorenato</a></p>
 </div>
