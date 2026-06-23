@@ -275,8 +275,7 @@ Contact
 </span>
 
 📧 <a href="mailto:joao@rleripio.com">joao@rleripio.com</a>  
-🌐 <a href="https://rleripio.com/ISF2026" target="_blank">rleripio.com/isf2026</a>  
-🔗 <a href="https://linkedin.com/in/leripiorenato" target="_blank">linkedin.com/in/leripiorenato</a>  
+🌐 <a href="https://www.rleripio.com" target="_blank">rleripio.com</a>    
 
 </div>
 
