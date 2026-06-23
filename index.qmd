@@ -3,7 +3,7 @@ title: "Nowcasting when predictors keep changing"
 subtitle: "Leveraging cross-sectional information in high-dimensional, high-turnover data"
 author: "João Renato Leripio"
 institute: "Kapitalo Investimentos"
-footer: '46th International Symposium on Forecasting · June 30, 2026. Montreal, Canada · Built with Quarto <iconify-icon icon="simple-icons:quarto" style="display: inline-block; width: 0.9em; height: 0.9em; margin-left: 0.3em; vertical-align: -0.1em;"></iconify-icon>'
+footer: '46th International Symposium on Forecasting · June 30, 2026. Montréal, Canada · Built with Quarto <iconify-icon icon="simple-icons:quarto" style="display: inline-block; width: 0.9em; height: 0.9em; margin-left: 0.3em; vertical-align: -0.1em;"></iconify-icon>'
 format:
   revealjs:
     center-title-slide: false
@@ -11,6 +11,8 @@ format:
     slide-number: true
     embed-resources: true
     transition: slide
+    fragment-in-url: true
+    incremental: true
     transition-speed: default
     background-transition: fade
     include-in-header:
@@ -41,7 +43,7 @@ format:
 
 - In addition, professional forecasters closely monitor a proprietary indicator known as the FGV Monitor
   
-  - The FGV Monitor tracks prices from brick-and-mortar stores and closely mirrors the methodology of Brazil's official statistical agency, providing an early and informative signal of short-term inflation 
+  - The FGV Monitor tracks prices from brick-and-mortar stores and closely mirrors the methodology of Brazil's official statistical agency, providing an early and informative signal of short-term inflation
 
 ## Predictive Performance Varies Across CPI Components
 ### While the FGV Monitor is difficult to outperform for some components, its predictive power is more limited for others
@@ -57,7 +59,9 @@ format:
 
 - But even when market participants collect similar sources, differences in coverage, cleaning, classification, and modeling often lead to very different indicators
 
-<span class="text-highlight"> The challenge is no longer access to data, but how to transform it into useful signals </span>
+::: {.text-highlight .fragment} 
+The challenge is no longer access to data, but how to transform it into useful signals
+:::
 
 ## What Inputs Do We Have?
 ### A large set of related products
@@ -68,9 +72,9 @@ format:
 
 - The CPI basket should be a subset of this data
 
-<span class="text-highlight">
+::: {.text-highlight .fragment} 
 This looks like a standard variable selection problem, right?
-</span>
+:::
 
 ## Not Quite a Selection Problem
 ### The product basket changes continuously
@@ -83,9 +87,9 @@ This looks like a standard variable selection problem, right?
 
 - Even "stable" categories exhibit gradual turnover
 
-<span class="text-highlight">
+::: {.text-highlight .fragment} 
 The set of relevant products is itself a moving target
-</span>
+:::
 
 ## What Does Turnover Look Like?
 ### Product availability over time
@@ -101,7 +105,9 @@ The set of relevant products is itself a moving target
 
 - In production environments, daily pipelines benefit from methods that remain stable over time rather than requiring frequent re-specification
 
-<span class="text-highlight"> The challenge is not only statistical. It is also operational. </span>
+::: {.text-highlight .fragment}  
+The challenge is not only statistical. It is also operational.
+:::
 
 ## Reframing the Task
 ### From selecting products to aggregating information
@@ -112,9 +118,9 @@ The set of relevant products is itself a moving target
 
 - The cross-section is rich, but the time dimension is scarce
 
-<span class="text-highlight">
+::: {.text-highlight .fragment} 
 Instead of asking which products matter, we ask how to best aggregate the information they contain
-</span>
+:::
 
 ## A Simple Benchmark
 ### Despite its simplicity, the mean captures a useful amount of information
@@ -130,9 +136,9 @@ Instead of asking which products matter, we ask how to best aggregate the inform
 
 - This perspective suggests a natural path for introducing additional structure
 
-<span class="text-highlight">
+::: {.text-highlight .fragment} 
 A factor model allows us to extend the mean while preserving its intuition
-</span>
+:::
 
 ## The Mean as the Simplest Factor Model
 ### A single latent factor under strong restrictions
@@ -149,7 +155,9 @@ f_t &= \eta_t \\
 \end{aligned}
 $$
 
-<span class="text-highlight">This naturally leads to potential extensions.</span>
+::: {.text-highlight .fragment} 
+This naturally leads to potential extensions.
+:::
 
 ## Extension 1: Factor Dynamics
 ### <span class="highlight-dynamics"> Allow the latent signal to evolve over time </span>
@@ -220,6 +228,24 @@ $$
 ### Simple forecast combinations often outperform their individual components
 
 ![](images/kpt_fgv_acc.png){fig-align="center"}
+
+## Business Impact
+### Our forecasts have consistently ranked among the Brazilian Central Bank's Top 5
+:::: {.columns}
+
+::: {.column width="50%"}
+![](images/focus_2022.png){fig-align="center" width=90%}
+
+![](images/focus_2023.png){fig-align="center" width=90%}
+:::
+
+::: {.column width="50%"}
+![](images/focus_2024_2025.png){fig-align="center" width=90%}
+
+![](images/focus_2026.png){fig-align="center" width=90%}
+:::
+
+::::
 
 ## Takeaways
 ### What we learned from high-turnover datasets

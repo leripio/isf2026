@@ -96,6 +96,21 @@ $presentation-slide-text-align: left !default;
 }
 
 // ---------------------------------------------------------------------------
+// Bullets transition
+// ---------------------------------------------------------------------------
+.reveal .slides section .fragment.visible:not(.current-fragment),
+.reveal .slides section .fragment.visible:not(.current-fragment) * {
+  color: #b8b8b8 !important;
+  opacity: 1;
+}
+
+.reveal .slides section .fragment.visible.current-fragment,
+.reveal .slides section .fragment.visible.current-fragment * {
+  color: var(--r-main-color) !important;
+  opacity: 1;
+}
+
+// ---------------------------------------------------------------------------
 // Slide headings
 // ---------------------------------------------------------------------------
 .reveal .slides section > h2 {
