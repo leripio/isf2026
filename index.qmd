@@ -46,7 +46,7 @@ format:
   - The FGV Monitor tracks prices from brick-and-mortar stores and closely mirrors the methodology of Brazil's official statistical agency, providing an early and informative signal of short-term inflation
 
 ## Predictive Performance Varies Across CPI Components
-### While the FGV Monitor is difficult to outperform for some components, its predictive power is more limited for others
+### FGV Monitor is difficult to outperform for some components, but less informative for others
 
 ![](images/ipca_fgv.png){fig-align="center"}
 
@@ -92,7 +92,7 @@ The set of relevant products is itself a moving target
 :::
 
 ## What Does Turnover Look Like?
-### Product availability over time
+### Product availability is highly dynamic over time
 
 ![](images/data_structure_perfume.png){fig-align="center"}
 
@@ -106,7 +106,7 @@ The set of relevant products is itself a moving target
 - In production environments, daily pipelines benefit from methods that remain stable over time rather than requiring frequent re-specification
 
 ::: {.text-highlight .fragment}  
-The challenge is not only statistical. It is also operational.
+The challenge is not only statistical, but also operational
 :::
 
 ## Reframing the Task
@@ -132,7 +132,7 @@ Instead of asking which products matter, we ask how to best aggregate the inform
 
 - The mean already captures a useful amount of information
 
-- Rather than replacing it, we can view it as a very restricted factor model
+- Rather than replacing it, we can view it as a restricted factor model
 
 - This perspective suggests a natural path for introducing additional structure
 
@@ -217,7 +217,7 @@ $$
 
 :::
 
-::: {.text-highlight .fragment} 
+::: {.text-highlight} 
 This naturally leads to potential extensions.
 :::
 
@@ -277,7 +277,7 @@ $$
 ![](images/student.png){fig-align="center"}
 
 ## Do Extensions Improve Forecasting Performance?
-### Model with Student-t errors vs. sample mean
+### Mean Absolute Error - Model with Student-t errors vs. sample mean
 
 ![](images/accuracy.png){fig-align="center"}
 

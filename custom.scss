@@ -38,8 +38,8 @@ $presentation-heading-color: $ink !default;
 $presentation-heading-line-height: 1.15 !default;
 $presentation-heading-letter-spacing: -0.01em !default;
 $presentation-heading-font-weight: 700 !default;
-$presentation-h1-font-size: 2.1em !default;
-$presentation-h2-font-size: 1.25em !default;
+$presentation-h1-font-size: 1.0em !default;
+$presentation-h2-font-size: 1.0em !default;
 $presentation-h3-font-size: 0.62em !default;
 $presentation-h4-font-size: 0.95em !default;
 
@@ -219,7 +219,7 @@ $presentation-slide-text-align: left !default;
 // Footer & slide number
 // ---------------------------------------------------------------------------
 .reveal .footer {
-  font-size: 0.38em;
+  font-size: 0.30em;
   color: $muted;
   letter-spacing: 0.01em;
 }
