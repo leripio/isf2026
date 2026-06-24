@@ -3,7 +3,7 @@ title: "Nowcasting when predictors keep changing"
 subtitle: "Leveraging cross-sectional information in high-dimensional, high-turnover data"
 author: "João Renato Leripio"
 institute: "Kapitalo Investimentos"
-footer: '46th International Symposium on Forecasting · June 30, 2026. Montréal, Canada · Built with Quarto <iconify-icon icon="simple-icons:quarto" style="display: inline-block; width: 0.9em; height: 0.9em; margin-left: 0.3em; vertical-align: -0.1em;"></iconify-icon>'
+footer: '46th International Symposium on Forecasting · June 30, 2026 · Montréal, Canada' 
 format:
   revealjs:
     center-title-slide: false
