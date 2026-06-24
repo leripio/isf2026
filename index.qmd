@@ -140,11 +140,14 @@ Instead of asking which products matter, we ask how to best aggregate the inform
 A factor model allows us to extend the mean while preserving its intuition
 :::
 
-## The Mean as the Simplest Factor Model
+## The Mean as the Simplest Factor Model {auto-animate="true" auto-animate-easing="easy-in-out"}
 ### A single latent factor under strong restrictions
 
+::: {.nonincremental}
 - Unit loadings, no factor dynamics, and homoskedastic Gaussian errors
+:::
 
+::: {data-id="mean-factor-equations" auto-animate-delay="0.2"}
 $$
 \require{cancel}
 \begin{aligned}
@@ -154,12 +157,71 @@ f_t &= \eta_t \\
 \eta_t &\sim \mathcal{N}(0, \sigma_\eta)
 \end{aligned}
 $$
+:::
+
+## The Mean as the Simplest Factor Model {auto-animate="true" auto-animate-easing="easy-in-out"}
+### A single latent factor under strong restrictions
+
+::: {.nonincremental}
+- Unit loadings, no factor dynamics, and homoskedastic Gaussian errors
+:::
+
+::: {.columns}
+
+::: {.column width="30%"}
+::: {data-id="mean-factor-equations"}
+$$
+\require{cancel}
+\begin{aligned}
+y_{i,t} &= f_t + \varepsilon_{i,t} \\
+f_t &= \eta_t \\
+\varepsilon_{i,t} &\sim {\mathcal{N}}(0, {\sigma_\varepsilon}) \\
+\eta_t &\sim \mathcal{N}(0, \sigma_\eta)
+\end{aligned}
+$$
+:::
+:::
+
+::: {.column width="70%"}
+![](images/factor_approx_mean.png)
+:::
+
+:::
+
+## The Mean as the Simplest Factor Model {auto-animate="true" auto-animate-easing="easy-in-out"}
+### A single latent factor under strong restrictions
+
+::: {.nonincremental}
+- Unit loadings, no factor dynamics, and homoskedastic Gaussian errors
+:::
+
+::: {.columns}
+
+::: {.column width="50%"}
+::: {data-id="mean-factor-equations"}
+$$
+\require{cancel}
+\begin{aligned}
+y_{i,t} &= f_t + \varepsilon_{i,t} \\
+f_t &= \eta_t \\
+\varepsilon_{i,t} &\sim {\mathcal{N}}(0, {\sigma_\varepsilon}) \\
+\eta_t &\sim \mathcal{N}(0, \sigma_\eta)
+\end{aligned}
+$$
+:::
+:::
+
+::: {.column width="50%"}
+![](images/factor_approx_mean.png)
+:::
+
+:::
 
 ::: {.text-highlight .fragment} 
 This naturally leads to potential extensions.
 :::
 
-## Extension 1: Factor Dynamics
+## Extension 1: Factor Dynamics {auto-animate="true"}
 ### <span class="highlight-dynamics"> Allow the latent signal to evolve over time </span>
 
 $$
@@ -172,12 +234,12 @@ f_t &= \color{#D97706}{f_{t-1}} + \eta_t \\
 \end{aligned}
 $$
 
-## Extension 1: Factor Dynamics
+## Extension 1: Factor Dynamics {auto-animate="true"}
 ### <span class="highlight-dynamics"> Allow the latent signal to evolve over time </span>
 
 ![](images/factor_dynamics.png){fig-align="center"}
 
-## Extension 2: Time-Varying Volatility
+## Extension 2: Time-Varying Volatility {auto-animate="true"}
 ### <span class="highlight-vol"> Measurement uncertainty changes with cross-sectional dispersion </span>
 
 $$
@@ -191,12 +253,12 @@ f_t &= \eta_t \\
 \end{aligned}
 $$
 
-## Extension 2: Time-Varying Volatility
+## Extension 2: Time-Varying Volatility {auto-animate="true"}
 ### <span class="highlight-vol"> Measurement uncertainty changes with cross-sectional dispersion </span>
 
 ![](images/time_varying_volatility.png){fig-align="center"}
 
-## Extension 3: Student-t Errors
+## Extension 3: Student-t Errors {auto-animate="true"}
 ### <span class="highlight-student"> Robustness to extreme product-level price changes </span>
 
 $$
@@ -209,7 +271,7 @@ f_t &= \eta_t \\
 \end{aligned}
 $$
 
-## Extension 3: Student-t Errors
+## Extension 3: Student-t Errors {auto-animate="true"}
 ### <span class="highlight-student"> Robustness to extreme product-level price changes </span>
 
 ![](images/student.png){fig-align="center"}
