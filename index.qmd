@@ -20,9 +20,9 @@ format:
       - file: cover-image.html
 ---
 
-## About me
+## Who am I?
 
--  Economist with a background in macroeconomic forecasting and data science
+- Economist with a background in macroeconomic forecasting and data science
 
 - Lead of Data and Economic Modeling at Kapitalo Investimentos, a Brazilian multi-manager hedge fund with over USD 5 billion in assets under management
 
@@ -37,47 +37,55 @@ format:
 
 - A deep and liquid market for inflation-linked bonds creates strong incentives to forecast inflation accurately
 
-- Public information is rapidly incorporated into prices by highly qualified forecasters
+- Professional forecasters rely on a wide range of high-frequency information
 
   - These include commodity prices, exchange rates, wholesale prices, among many others
 
-- In addition, professional forecasters closely monitor a proprietary indicator known as the FGV Monitor
+- One of the most important sources is the *FGV Monitor*, a proprietary indicator based on prices collected from brick-and-mortar stores
   
-  - The FGV Monitor tracks prices from brick-and-mortar stores and closely mirrors the methodology of Brazil's official statistical agency, providing an early and informative signal of short-term inflation
+  - By closely following the methodology of Brazil’s official statistical agency, it provides an early signal of short-term inflation dynamics
 
 ## Predictive Performance Varies Across CPI Components
-### FGV Monitor is difficult to outperform for some components, but less informative for others
+### The FGV Monitor is hard to beat for some components, but less informative for others
 
 ![](images/ipca_fgv.png){fig-align="center"}
 
-## Where can we seek additional information?
-### Finding an edge increasingly requires alternative data
+## Where Can Additional Information Come From?
+### Alternative data can help where existing signals are weaker
 
-- Rather than replacing the FGV Monitor, we seek to add an extra indicator, particularly for components where its predictive performance is more limited
+- The greatest potential lies in components where the FGV Monitor is less informative
 
-- Recent advances in computational tools have significantly lowered the barriers to collecting alternative data
+- Rather than replacing the FGV Monitor, we seek an additional source of high-frequency information
 
-- But even when market participants collect similar sources, differences in coverage, cleaning, classification, and modeling often lead to very different indicators
+- Recent advances in computational tools have made collecting **alternative data** substantially more accessible
+
+- Even when using similar raw data, the resulting indicators can differ because of:
+:::{.nonincremental}
+  - Coverage and representativeness
+  - Data cleaning and preprocessing
+  - Product matching and classification
+  - Modeling choices
+:::
 
 ::: {.text-highlight .fragment} 
 The challenge is no longer access to data, but how to transform it into useful signals
 :::
 
-## What Inputs Do We Have?
-### A large set of related products
+## What Information Do We Have?
+### Web-scraped prices from a much larger universe of products
 
-- Web-scraped product-level prices
+- Daily web-scraped product-level prices
 
-- The number of available products is much larger than the official CPI basket
+- The number of available products far exceeds the official CPI basket
 
-- The CPI basket should be a subset of this data
+- The CPI items are expected to be embedded somewhere in this much larger universe
 
-::: {.text-highlight .fragment} 
-This looks like a standard variable selection problem, right?
+::: {.text-highlight .fragment}
+At first glance, this looks like a standard variable selection problem
 :::
 
 ## Not Quite a Selection Problem
-### The product basket changes continuously
+### The predictor set evolves continuously
 
 - Products continuously enter and leave the basket
 
@@ -88,7 +96,7 @@ This looks like a standard variable selection problem, right?
 - Even "stable" categories exhibit gradual turnover
 
 ::: {.text-highlight .fragment} 
-The set of relevant products is itself a moving target
+The predictors themselves are a moving target
 :::
 
 ## What Does Turnover Look Like?
