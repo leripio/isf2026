@@ -22,66 +22,60 @@ format:
 
 ## Who am I?
 
-- Economist with a background in macroeconomic forecasting and data science
+- Economist working at the intersection of applied macroeconomics, data science, and research engineering
 
-- Lead of Data and Economic Modeling at Kapitalo Investimentos, a Brazilian multi-manager hedge fund with over USD 5 billion in assets under management
+- Lead of Data and Economic Modeling at Kapitalo, a Brazilian multi-manager hedge fund managing over USD 5 billion in assets
 
-- My work involves forecasting, quantitative research, and the development of production data pipelines
+- I develop quantitative models, data products, and data pipelines for investment research
 
-- I am particularly interested in alternative data and research engineering
+- Much of my recent work has focused on inflation nowcasting using alternative data.
 
-## What Led Me to This Problem?
-### Forecasting inflation in Brazil is a highly competitive task
+## Why Inflation Nowcasting?
+### Predicting inflation in Brazil is a highly competitive task
 
-- Inflation forecasts are central to asset allocation in Brazil
+- Inflation expectations are central to asset allocation in Brazil
 
-- A deep and liquid market for inflation-linked bonds creates strong incentives to forecast inflation accurately
+- A deep and liquid market for inflation-linked bonds creates strong incentives to improve predictive accuracy
 
 - Professional forecasters rely on a wide range of high-frequency information
 
   - These include commodity prices, exchange rates, wholesale prices, among many others
 
-- One of the most important sources is the *FGV Monitor*, a proprietary indicator based on prices collected from brick-and-mortar stores
+  - One of the most valuable information sources is the *FGV Monitor*, a proprietary daily indicator based on brick-and-mortar price collection
   
   - By closely following the methodology of Brazil’s official statistical agency, it provides an early signal of short-term inflation dynamics
 
-## Predictive Performance Varies Across CPI Components
-### The FGV Monitor is hard to beat for some components, but less informative for others
+## The FGV Monitor Leaves Room for Improvement
+### It is hard to beat for some components, but less informative for others
 
 ![](images/ipca_fgv.png){fig-align="center"}
 
 ## Where Can Additional Information Come From?
-### Alternative data can help where existing signals are weaker
+### Building an additional high-frequency signal from web-scraped prices
+
+- Rather than replacing the FGV Monitor, we seek an additional source of high-frequency information based on web-scraped prices
 
 - The greatest potential lies in components where the FGV Monitor is less informative
 
-- Rather than replacing the FGV Monitor, we seek an additional source of high-frequency information
+- Recent advances in computational tools have made collecting web prices substantially more accessible
 
-- Recent advances in computational tools have made collecting **alternative data** substantially more accessible
-
-- Even when using similar raw data, the resulting indicators can differ because of:
-:::{.nonincremental}
-  - Coverage and representativeness
-  - Data cleaning and preprocessing
-  - Product matching and classification
-  - Modeling choices
-:::
-
-::: {.text-highlight .fragment} 
-The challenge is no longer access to data, but how to transform it into useful signals
-:::
-
-## What Information Do We Have?
-### Web-scraped prices from a much larger universe of products
-
-- Daily web-scraped product-level prices
-
-- The number of available products far exceeds the official CPI basket
-
-- The CPI items are expected to be embedded somewhere in this much larger universe
+- Even when starting from similar raw data, the resulting indicators can differ because of coverage, preprocessing, classification, and modeling choices
 
 ::: {.text-highlight .fragment}
-At first glance, this looks like a standard variable selection problem
+The challenge is no longer access to data, but transforming it into useful signals.
+:::
+
+## The First Challenge
+### Which products should we use?
+
+- We observe hundreds, sometimes thousands, of products with daily price updates
+
+- The available product universe is far larger than the official CPI basket
+
+- The official CPI basket is expected to be embedded within this larger universe
+
+::: {.text-highlight .fragment}
+This looks like a standard variable selection problem, right?
 :::
 
 ## Not Quite a Selection Problem
@@ -89,14 +83,14 @@ At first glance, this looks like a standard variable selection problem
 
 - Products continuously enter and leave the basket
 
-- Electronics have short lifecycles and are constantly replaced
+  - Electronics have short lifecycles and are constantly replaced
 
-- Vehicles are effectively a new basket every year
+  - Vehicles are effectively a new basket every year
 
-- Even "stable" categories exhibit gradual turnover
+  - Even "stable" categories exhibit gradual turnover
 
 ::: {.text-highlight .fragment} 
-The predictors themselves are a moving target
+Product turnover makes the set of available products generally unstable over time
 :::
 
 ## What Does Turnover Look Like?
@@ -124,10 +118,10 @@ The challenge is not only statistical, but also operational
 
 - Most products in our data have short and irregular histories
 
-- The cross-section is rich, but the time dimension is scarce
+- Time dimension is scarce, but the cross-section is rich
 
 ::: {.text-highlight .fragment} 
-Instead of asking which products matter, we ask how to best aggregate the information they contain
+Instead of selecting predictors, we exploit the information contained in the cross-section
 :::
 
 ## A Simple Benchmark
