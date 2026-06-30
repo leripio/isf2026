@@ -16,7 +16,6 @@ format:
     transition-speed: default
     background-transition: fade
     include-in-header:
-      - text: <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
       - file: cover-image.html
 ---
 
@@ -28,7 +27,13 @@ format:
 
 - I develop quantitative models, data products, and data pipelines for investment research
 
-- Much of my recent work has focused on inflation nowcasting using alternative data.
+- Much of my recent work has focused on inflation nowcasting using alternative data
+
+::: notes
+We started using alternative data as of the onset of COVID back in 2020 to track the current state of the economy.
+Many of these indicators became less useful as the economy estabilized, but others remained useful.
+For example prices from web to track inflation.
+:::
 
 ## Why Inflation Nowcasting?
 ### Predicting inflation in Brazil is a highly competitive task
@@ -50,6 +55,13 @@ format:
 
 ![](images/ipca_fgv.png){fig-align="center"}
 
+::: notes
+The FGV Monitor covers each of the more than 300 items in Brazilian CPI indicator.
+Throughtout the presentation, I'll be considering only a handfull of them.
+Many of them weights heavily on the aggregate CPI either because of its large weight on the basket or because of its high volatility. Perfume is an example of both causes.
+Nevertheless, althought still preliminary, the results here apply to most of the examples I've worked on so far.
+:::
+
 ## Where Can Additional Information Come From?
 ### Building an additional high-frequency signal from web-scraped prices
 
@@ -63,6 +75,11 @@ format:
 
 ::: {.text-highlight .fragment}
 The challenge is no longer access to data, but transforming it into useful signals.
+:::
+
+::: notes
+This is an appealing feature of indicators built from alternative data. As a matter of fact, we've been putting a massive amount of effort in improving these preprocessing steps, especially the classification step.
+Besides fine tuning the rules that controls how products are classified, we are also testing with LLM's whenever ambiguity remains.
 :::
 
 ## The First Challenge
@@ -93,10 +110,23 @@ This looks like a standard variable selection problem, right?
 Product turnover makes the set of available products generally unstable over time
 :::
 
+::: notes
+Sometimes, the turnover reflects methodological aspects, such as how the official statistical agency builds their datasets.
+Sometimes, howerver, it's a matter of the circumstances as old-fashioned products are being replaced by new ones. 
+:::
+
 ## What Does Turnover Look Like?
 ### Product availability is highly dynamic over time
 
 ![](images/data_structure_perfume.png){fig-align="center"}
+
+::: notes
+Turnover may arise because of many things, either because: 
+- New products are released, or
+- Products that are a limited edition, or
+- Products are not available at the website, or even
+- Because failure in classification, due to typos or blank fields (missing features) when extracting data from websites
+:::
 
 ## Why Do Standard Approaches Struggle?
 ### High turnover creates methodological and operational challenges
@@ -109,6 +139,11 @@ Product turnover makes the set of available products generally unstable over tim
 
 ::: {.text-highlight .fragment}  
 The challenge is not only statistical, but also operational
+:::
+
+::: notes
+Operational issues are so important here because we're running this analisys on a daily basis and for dozens of CPI itens.
+Also, because we have to release these results just on time as market participants are reacting to news all the time -- in this case the FGV Monitor trigger market prices.
 :::
 
 ## Reframing the Task
@@ -124,10 +159,23 @@ The challenge is not only statistical, but also operational
 Instead of selecting predictors, we exploit the information contained in the cross-section
 :::
 
+::: notes
+At this point it's worth clarifying that what I'm actually seeking is a real-time indicator to track inflation. 
+It means essentially an unsupervised summary of the cross-sectional data. 
+This indicator will serve as an additional input to the final forecast which includes other indicators and, surely, judgement. 
+:::
+
 ## A Simple Benchmark
 ### Despite its simplicity, the mean captures a useful amount of information
 
 ![](images/mean_benchmark.png){fig-align="center"}
+
+::: notes
+This is sometimes an underrated result in this context, since it enables us to extract valuable information from a very simple and easy to compute method.
+Indeed, we've successfully been employing simple average in this context for a couple of years.
+But as we can see, this works extremely well for some itens while not so well for others.
+The question is, therefore, whether we can improve on these more challenging items.
+:::
 
 ## A Structured Approach
 ### From a Mean to a Factor Model
@@ -140,6 +188,11 @@ Instead of selecting predictors, we exploit the information contained in the cro
 
 ::: {.text-highlight .fragment} 
 A factor model allows us to extend the mean while preserving its intuition
+:::
+
+::: notes
+I believe that the usefulness of this framework is that it allows us to assess several assumptions by simply making small tweaks,
+rather that trying different things out with varying levels of discretionarity.
 :::
 
 ## The Mean as the Simplest Factor Model {auto-animate="true" auto-animate-easing="easy-in-out"}
@@ -190,6 +243,12 @@ $$
 
 :::
 
+::: notes
+They are not exactly the same, there are some differences. I will not, however, dive into the differences.
+What is most important here is that this framework delivers results that are very similar to the sample mean,
+and then can serve as a useful starting point to achieve better results than our current baseline.
+:::
+
 ## The Mean as the Simplest Factor Model {auto-animate="true" auto-animate-easing="easy-in-out"}
 ### A single latent factor under strong restrictions
 
@@ -220,7 +279,12 @@ $$
 :::
 
 ::: {.text-highlight} 
-This naturally leads to potential extensions.
+This naturally leads to potential extensions
+:::
+
+::: notes
+In the next slides I'll be relaxing some of these assumptions, namely the lack of temporal dynamics and the shape of the distribution of the observation error term.
+I will not, however, relax the unit loading assumption because of the turnover nature of the dataset and, of course, it's high dimensionality.
 :::
 
 ## Extension 1: Factor Dynamics {auto-animate="true"}
@@ -241,6 +305,10 @@ $$
 
 ![](images/factor_dynamics.png){fig-align="center"}
 
+::: notes
+No noticeable difference here. I was expecting a different result, and my best guess on this is that, since prices are correlated over time the cross-section at time t already captures the dynamics in the factor structure.
+:::
+
 ## Extension 2: Time-Varying Volatility {auto-animate="true"}
 ### <span class="highlight-vol"> Measurement uncertainty changes with cross-sectional dispersion </span>
 
@@ -255,10 +323,19 @@ f_t &= \eta_t \\
 \end{aligned}
 $$
 
+::: notes
+This was motivated by an empirical finding that the forecast error from the indicator built from the simple avaerage was correlated with the cross-section dispersion.
+So this was an attempt to address this empirical finding, to try to incorporate it into the model throught a scale effect on variance of the error term. 
+:::
+
 ## Extension 2: Time-Varying Volatility {auto-animate="true"}
 ### <span class="highlight-vol"> Measurement uncertainty changes with cross-sectional dispersion </span>
 
 ![](images/time_varying_volatility.png){fig-align="center"}
+
+::: notes
+Again, no noticeable effects. At least for the point estimation of the factor which is our interest here -- for now, and it's worth mentioning, I'm not particularly interested in the distribution of the forecasts.
+:::
 
 ## Extension 3: Student-t Errors {auto-animate="true"}
 ### <span class="highlight-student"> Robustness to extreme product-level price changes </span>
@@ -273,10 +350,22 @@ f_t &= \eta_t \\
 \end{aligned}
 $$
 
+::: notes
+This is the last feature I tried to explore, and as you might expect, this one delivered noticeable differences.
+More especifically, by allowing heavy tails in the distribution of the error term, the resulting factor shows less sensitivity to large -- and not widespread -- prices changes.
+:::
+
 ## Extension 3: Student-t Errors {auto-animate="true"}
 ### <span class="highlight-student"> Robustness to extreme product-level price changes </span>
 
 ![](images/student.png){fig-align="center"}
+
+::: notes
+What's interesting here is that the resulting factor kept the hability to show large moviments when they're widespread.
+This has allowed us to make risk considerations at important times, without discretionarity.
+This is another important issue, as many of you might be wondering why not to use a trimmed mean, median, or some statistic like these.
+Here we are making no discretionary choice over the sample. Not leaving aside any portion of the sample, just estimating the degree of freedom parameter (nu) 
+:::
 
 ## Do Extensions Improve Forecasting Performance?
 ### Mean Absolute Error - Model with Student-t errors vs. sample mean
